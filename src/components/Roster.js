@@ -20,7 +20,7 @@ class Roster extends React.Component {
   }
   render() {
     return (
-      <div className="roster">stinky poopy</div>
+      <div className='roster'>stinky poopy</div>
     )
   }
 }

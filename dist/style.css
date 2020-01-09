@@ -1,1 +1,7 @@
 body {margin: 0}
+
+/* nav */
+nav {
+  display: flex;
+  justify-content: space-evenly
+}
