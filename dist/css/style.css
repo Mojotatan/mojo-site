@@ -1,0 +1,16 @@
+body {margin: 0}
+
+/* nav */
+nav {
+  display: flex;
+  justify-content: space-evenly
+}
+
+/* 40k */
+.roster * {
+  font-size: 12px
+}
+.rules > div > span {
+  display: block;
+  font-weight: bold
+}

@@ -13,7 +13,7 @@ app.use(morgan('tiny'))
 
 app.use(express.static('dist'))
 
-app.use('/api', require('./api/index.js'))
+app.use('/api', require('./api/index'))
 
 app.get('*', (req, res) => {
   res.sendFile(path.resolve(__dirname, './dist/index.html'))

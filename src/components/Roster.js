@@ -5,24 +5,78 @@ class Roster extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      roster: null
+      roster: {
+        title: '',
+        rules: [],
+        units: []
+      }
     }
   }
   componentDidMount() {
-    axios.get('/roster/1500_ba_v5')
+    axios.get('/api/40k/roster/1500_ba_v5')
     .then(res => {
-      let roster = document.createElement('div')
-      roster.innerHTML = res.data
-      console.log(roster)
-      this.setState({roster})
+      let elem = document.createElement('div')
+      elem.innerHTML = res.data
+      this.setState({
+        roster: processRoster(elem)
+      })
     })
     .catch(err => console.error(err))
   }
   render() {
+    console.log(this.state.roster)
     return (
-      <div className='roster'>stinky poopy</div>
+      <div className='roster'>
+        <div className='rules'>
+          {this.state.roster.rules.map((rule, index) => (
+            <div key={index}>
+              <strong>{rule.name}</strong>
+              <div>{rule.text}</div>
+            </div>
+          ))}
+        </div>
+      </div>
     )
   }
 }
 
 export default Roster
+
+function processRoster(html) {
+  let roster = {
+    title: html.querySelector('h1').innerText,
+    rules: [],
+    units: []
+  }
+  html.querySelectorAll('.force').forEach(detachment => {
+    detachment.querySelectorAll('.rootselection').forEach((unit, index) => {
+      if (index === 0) {
+        // first one is force org slot
+        // roster.rules.push(strip(unit.innerHTML))
+      } else {
+        roster.units.push(unit)
+      }
+    })
+  })
+  html.querySelectorAll('.summary > p').forEach(rule => {
+    let lines = strip(rule.innerHTML).split('\n')
+    roster.rules.push({
+      name: lines[1].trim(),
+      text: lines.slice(2, -2).join('\n')
+    })
+  })
+  return roster
+}
+
+function strip(html) {
+  // let str = html.replace(/( )\1{1,}/, '')
+  // get rid of newline characters?
+  let content = ''
+  let bracket = false
+  for (let i = 0; i < html.length; i++) {
+    if (html[i] === '<') bracket = true
+    if (!bracket) content += html[i]
+    if (html[i] === '>') bracket = false
+  }
+  return content
+}
