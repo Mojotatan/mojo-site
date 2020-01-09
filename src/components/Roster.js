@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios'
+import Accordion from './Accordion'
 
 class Roster extends React.Component {
   constructor(props) {
@@ -29,10 +30,11 @@ class Roster extends React.Component {
       <div className='roster'>
         <div className='rules'>
           {this.state.roster.rules.map((rule, index) => (
-            <div key={index}>
-              <strong>{rule.name}</strong>
-              <div>{rule.text}</div>
-            </div>
+            <Accordion
+              key={index}
+              head={rule.name}
+              body={rule.text}
+            />
           ))}
         </div>
       </div>
@@ -61,7 +63,7 @@ function processRoster(html) {
   html.querySelectorAll('.summary > p').forEach(rule => {
     let lines = strip(rule.innerHTML).split('\n')
     roster.rules.push({
-      name: lines[1].trim(),
+      name: lines[1].trim().replace(/:/, ''),
       text: lines.slice(2, -2).join('\n')
     })
   })

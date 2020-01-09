@@ -3,14 +3,22 @@ body {margin: 0}
 /* nav */
 nav {
   display: flex;
-  justify-content: space-evenly
+  justify-content: space-evenly;
+  margin-bottom: 20px
 }
 
 /* 40k */
-.roster * {
+/* .roster * {
   font-size: 12px
+} */
+.accordion {
+  margin-bottom: 10px
 }
-.rules > div > span {
+.accordion > span {
   display: block;
+  font-size: 16px;
   font-weight: bold
+}
+.accordion > div {
+  font-size: 14px
 }
