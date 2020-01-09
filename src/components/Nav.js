@@ -7,6 +7,7 @@ export default function Nav() {
       <div>gooday, ya fuckin cunt</div>
       <Link to='/'>Home</Link>
       <Link to='/40k'>40k</Link>
+      <Link to='/travels'>Travels</Link>
     </nav>
   )
 }

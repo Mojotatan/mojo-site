@@ -22,3 +22,8 @@ nav {
 .accordion > div {
   font-size: 14px
 }
+
+/* Map */
+.text-black {color: black}
+.text-yellow {color: yellow}
+.text-red {color: red}

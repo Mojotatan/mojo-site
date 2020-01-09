@@ -5,6 +5,7 @@ import {
   Route
 } from 'react-router-dom'
 import Nav from './components/Nav'
+import Travels from './components/Travels'
 import Roster from './components/Roster'
 
 export default function App() {
@@ -15,6 +16,9 @@ export default function App() {
         <Switch>
           <Route path='/40k'>
             <Roster />
+          </Route>
+          <Route path='/travels'>
+            <Travels />
           </Route>
           <Route path='/'>
             <div>home</div>
