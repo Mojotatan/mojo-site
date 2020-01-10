@@ -27,7 +27,7 @@ class Roster extends React.Component {
   render() {
     console.log(this.state.roster)
     return (
-      <div className='roster'>
+      <div className='container roster'>
         <div className='rules'>
           {this.state.roster.rules.map((rule, index) => (
             <Accordion

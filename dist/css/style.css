@@ -27,3 +27,33 @@ nav {
 .text-black {color: black}
 .text-yellow {color: yellow}
 .text-red {color: red}
+
+.map-controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-bottom: 10px
+}
+.map-controls * {
+  cursor: pointer
+}
+.map-controls .active {
+  font-weight: bold
+}
+.map-controls *:first-child {
+  margin-right: 20px
+}
+
+.map-container {
+  background-color: #000
+}
+.map {
+  width: 100%;
+  height: auto;
+  stroke-linejoin: round;
+  stroke: #fff
+}
+.map path {
+  fill: #000;
+  fill-rule: evenodd
+}
