@@ -49,12 +49,14 @@ nav {
   position: relative;
   background-color: #000
 }
-.map-location-name {
-  height: 32px;
-  margin-bottom: -32px;
+.map-focus, .map-highlight {
   padding-top: 8px;
   font-size: 21px;
   text-align: center
+}
+.map-highlight {
+  height: 32px;
+  margin-bottom: -32px
 }
 .map {
   position: relative;

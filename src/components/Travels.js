@@ -40,19 +40,21 @@ class Travels extends React.Component {
           <div id='earth' className={this.state.map === 'earth' ? 'active' : ''} onClick={this.switchMap}>Earth</div>
         </div>
         <div className='map-container'>
+          {this.state.focus ?
+            <div className='travelogue'>
+              <div className='map-focus text-white'>{this.state.focus}</div>
+              <img src='/assets/img/morgue-thrull.jpg' />
+              <div>
+                Morgue Thrull hypers in the chat, we are back on board.<br /><br /><br /><br /><br /><br />Anyway had to use up space.
+              </div>
+            </div>
+            : null
+          }
           <div className='map-highlight text-white'>{this.state.highlight}</div>
           {this.state.map === 'usa' ?
             <Usa onHover={this.onHover} onFocus={this.onFocus} />
             :
             <Earth onHover={this.onHover} onFocus={this.onFocus} />
-          }
-          {this.state.focus ?
-            <div className='travelogue'>
-              <div>{this.state.focus}</div>
-              <img src='' />
-              <div></div>
-            </div>
-            : null
           }
         </div>
       </div>
