@@ -10,7 +10,11 @@ export default props => (
     viewBox="0 0 2000 1001"
     width="2000px"
     id="svg2"
-    className="map map-earth">
+    data-name=""
+    className="map map-earth"
+    onMouseOver={props.onHover}
+    onClick={props.onFocus}
+  >
     <path
       id="AF"
       data-name="Afghanistan"

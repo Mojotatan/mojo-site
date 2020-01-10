@@ -1,4 +1,9 @@
-body {margin: 0}
+/* universal */
+body {margin: 0; font-family: Helvetica, sans-serif}
+.text-black {color: #000}
+.text-white {color: #fff}
+.text-yellow {color: yellow}
+.text-red {color: red}
 
 /* nav */
 nav {
@@ -24,10 +29,6 @@ nav {
 }
 
 /* Map */
-.text-black {color: black}
-.text-yellow {color: yellow}
-.text-red {color: red}
-
 .map-controls {
   display: flex;
   justify-content: center;
@@ -45,9 +46,18 @@ nav {
 }
 
 .map-container {
+  position: relative;
   background-color: #000
 }
+.map-location-name {
+  height: 32px;
+  margin-bottom: -32px;
+  padding-top: 8px;
+  font-size: 21px;
+  text-align: center
+}
 .map {
+  position: relative;
   width: 100%;
   height: auto;
   stroke-linejoin: round;

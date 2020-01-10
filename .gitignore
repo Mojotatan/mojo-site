@@ -1,4 +1,4 @@
-dist/main.js
+dist/assets/js/main.js
 node_modules/*
 plans.txt
 rosters/*

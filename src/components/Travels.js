@@ -8,16 +8,21 @@ class Travels extends React.Component {
     super(props)
     this.state = {
       map: 'usa',
-      highlight: null
+      highlight: ' ',
+      focus: ''
     }
-    this.hover = this.hover.bind(this)
+    this.onHover = this.onHover.bind(this)
+    this.onFocus = this.onFocus.bind(this)
     this.switchMap = this.switchMap.bind(this)
   }
-  hover() {
-    // triggers map 
+  onHover(e) {
+    this.setState({highlight: e.target.getAttribute('data-name')})
+  }
+  onFocus(e) {
+    this.setState({focus: e.target.getAttribute('data-name')})
   }
   switchMap(e) {
-    this.setState({map: e.target.id})
+    this.setState({map: e.target.id, focus: ''})
   }
   render() {
     return (
@@ -35,13 +40,15 @@ class Travels extends React.Component {
           <div id='earth' className={this.state.map === 'earth' ? 'active' : ''} onClick={this.switchMap}>Earth</div>
         </div>
         <div className='map-container'>
+          <div className='map-highlight text-white'>{this.state.highlight}</div>
           {this.state.map === 'usa' ?
-            <Usa />
+            <Usa onHover={this.onHover} onFocus={this.onFocus} />
             :
-            <Earth />
+            <Earth onHover={this.onHover} onFocus={this.onFocus} />
           }
-          {this.state.highlight ?
+          {this.state.focus ?
             <div className='travelogue'>
+              <div>{this.state.focus}</div>
               <img src='' />
               <div></div>
             </div>
