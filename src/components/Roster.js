@@ -15,6 +15,7 @@ class Roster extends React.Component {
   }
   componentDidMount() {
     axios.get('/api/40k/roster/1500_ba_v5')
+    // axios.get('/api/40k/roster/3000_um')
     .then(res => {
       let elem = document.createElement('div')
       elem.innerHTML = res.data
@@ -29,7 +30,7 @@ class Roster extends React.Component {
     return (
       <div className='container roster'>
         <div className='row rules'>
-          {this.state.roster.rules.map((rule, index) => (
+          {this.state.roster.rules.sort(alphabetize).map((rule, index) => (
             <div key={index} className='col-lg-6 col-12'>
               <Accordion
                 head={rule.name}
@@ -39,7 +40,7 @@ class Roster extends React.Component {
           ))}
         </div>
         <div className='row units'>
-          {this.state.roster.units.map((unit, index) => (
+          {this.state.roster.units.sort(alphabetize).map((unit, index) => (
             <div key={index} className='col-lg-6 col-12 unit'>
               <div className='unit-name'>
                 {unit.name}{(unit.quantity > 1) ? ` (x${unit.quantity})`: ''}
@@ -148,4 +149,10 @@ function strip(html) {
     if (html[i] === '>') bracket = false
   }
   return content
+}
+
+function alphabetize(a, b) {
+  if (a.name.toLowerCase() < b.name.toLowerCase()) return -1
+  else if (a.name.toLowerCase() > b.name.toLowerCase()) return 1
+  else return 0
 }
