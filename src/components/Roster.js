@@ -28,13 +28,54 @@ class Roster extends React.Component {
     console.log(this.state.roster)
     return (
       <div className='container roster'>
-        <div className='rules'>
+        <div className='row rules'>
           {this.state.roster.rules.map((rule, index) => (
-            <Accordion
-              key={index}
-              head={rule.name}
-              body={rule.text}
+            <div key={index} className='col-lg-6 col-12'>
+              <Accordion
+                head={rule.name}
+                body={rule.text}
             />
+            </div>
+          ))}
+        </div>
+        <div className='row units'>
+          {this.state.roster.units.map((unit, index) => (
+            <div key={index} className='col-lg-6 col-12 unit'>
+              <div className='unit-name'>
+                {unit.name}{(unit.quantity > 1) ? ` (x${unit.quantity})`: ''}
+              </div>
+              <div className='unit-properties'>
+                <div>
+                  <strong>Categories: </strong>
+                  <span>{unit.categories}</span>
+                </div>
+                <div>
+                  <strong>Rules: </strong>
+                  <span>{unit.rules}</span>
+                </div>
+                <div>
+                  <strong>Abilities: </strong>
+                  <span>{unit.abilities}</span>
+                </div>
+                <div>
+                  <strong>Weapons: </strong>
+                  <span>{unit.weapons}</span>
+                </div>
+              </div>
+              {unit.tables.map((table, index) => (
+                <table key={index} className='roster-table'>
+                  <tbody>
+                    {table.map((tr, index) => (
+                      <tr key={index}>
+                        {tr.map((td, index) => (
+                          <td key={index}>{td}</td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              ))}
+            </div>
           ))}
         </div>
       </div>
@@ -51,12 +92,38 @@ function processRoster(html) {
     units: []
   }
   html.querySelectorAll('.force').forEach(detachment => {
-    detachment.querySelectorAll('.rootselection').forEach((unit, index) => {
+    detachment.querySelectorAll('.category').forEach((category, index) => {
       if (index === 0) {
-        // first one is force org slot
-        // roster.rules.push(strip(unit.innerHTML))
+        // first category is force org slot
       } else {
-        roster.units.push(unit)
+        category.querySelectorAll('.rootselection').forEach(unit => {
+          let existing = false
+          for (let i = 0; i < roster.units.length; i++) {
+            if (roster.units[i].raw === unit.innerHTML) {
+              roster.units[i].quantity++
+              existing = true
+              i = roster.units.length
+            }
+          }
+          if (!existing) {
+            roster.units.push({
+              name: unit.querySelector('h4').innerText,
+              quantity: 1,
+              raw: unit.innerHTML,
+              categories: unit.querySelector('.category-names span:nth-child(2)').innerText,
+              rules: unit.querySelector('.rule-names span:nth-child(2)').innerText,
+              abilities: unit.querySelector('.profile-names span:nth-child(2)').innerText,
+              // weapons: unit.querySelector('.profile-names span:last-child').innerText,
+              tables: Array.from(unit.querySelectorAll('table')).map(table => {
+                return Array.from(table.querySelectorAll('tr')).map(tr => {
+                  return Array.from(tr.querySelectorAll('th:not(:last-child), td:not(:last-child')).map(td => {
+                    return td.innerText
+                  })
+                })
+              })
+            })
+          }
+        })
       }
     })
   })
