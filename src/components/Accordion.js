@@ -15,7 +15,7 @@ class Accordion extends React.Component {
   }
   render() {
     return (
-      <div className='accordion' onClick={this.toggle}>
+      <div className={this.props.className ? `accordion ${this.props.className}` : 'accordion'} onClick={this.toggle}>
         <span>{this.props.head}</span>
         {this.state.open ? <div>{this.props.body}</div> : null}
       </div>

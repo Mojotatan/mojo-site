@@ -6,7 +6,7 @@ import {
 } from 'react-router-dom'
 import Nav from './components/Nav'
 import Travels from './components/Travels'
-import Roster from './components/Roster'
+import FortyK from './components/FortyK'
 
 export default function App() {
   return (
@@ -15,7 +15,7 @@ export default function App() {
         <Nav />
         <Switch>
           <Route path='/40k'>
-            <Roster />
+            <FortyK />
           </Route>
           <Route path='/travels'>
             <Travels />
