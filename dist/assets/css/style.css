@@ -1,5 +1,6 @@
 /* universal */
 body {margin: 0; font-family: Helvetica, sans-serif}
+.bold {font-weight: bold}
 .text-black {color: #000}
 .text-white {color: #fff}
 .text-yellow {color: yellow}
@@ -38,6 +39,9 @@ nav {
 .unit-properties {
   font-size: 14px;
   margin-bottom: 8px
+}
+.unit-profiles span + span:before {
+  content: ' '
 }
 .roster-table {
   border-collapse: collapse;

@@ -48,20 +48,26 @@ class Roster extends React.Component {
               <div className='unit-properties'>
                 <div>
                   <strong>Categories: </strong>
-                  <span>{unit.categories}</span>
+                  <span>{unit.properties.categories}</span>
                 </div>
+                {unit.properties.selections ?
+                  <div>
+                    <strong>Selections: </strong>
+                    <span>{unit.properties.selections}</span>
+                  </div>
+                  : null
+                }
                 <div>
                   <strong>Rules: </strong>
-                  <span>{unit.rules}</span>
+                  <span>{unit.properties.rules}</span>
                 </div>
-                <div>
-                  <strong>Abilities: </strong>
-                  <span>{unit.abilities}</span>
-                </div>
-                <div>
-                  <strong>Weapons: </strong>
-                  <span>{unit.weapons}</span>
-                </div>
+                {unit.properties.profiles.map((profile, index) => (
+                  <div key={index} className='unit-profiles'>
+                    {profile.map((span, spandex) => (
+                      <span className={spandex % 2 === 0 ? 'bold' : ''}>{span}</span>
+                    ))}
+                  </div>
+                ))}
               </div>
               {unit.tables.map((table, index) => (
                 <table key={index} className='roster-table'>
@@ -111,10 +117,14 @@ function processRoster(html) {
               name: unit.querySelector('h4').innerText,
               quantity: 1,
               raw: unit.innerHTML,
-              categories: unit.querySelector('.category-names span:nth-child(2)').innerText,
-              rules: unit.querySelector('.rule-names span:nth-child(2)').innerText,
-              abilities: unit.querySelector('.profile-names span:nth-child(2)').innerText,
-              // weapons: unit.querySelector('.profile-names span:last-child').innerText,
+              properties: {
+                categories: unit.querySelector('.category-names span:nth-child(2)').innerText,
+                selections: unit.querySelector('h4 + p:not(.category-names') ? unit.querySelector('h4 + p:not(.category-names)').innerText : null,
+                rules: unit.querySelector('.rule-names span:nth-child(2)').innerText,
+                profiles: Array.from(unit.querySelectorAll('.profile-names')).map(profile => {
+                  return Array.from(profile.querySelectorAll('span')).map(span => span.innerText)
+                })
+              },
               tables: Array.from(unit.querySelectorAll('table')).map(table => {
                 return Array.from(table.querySelectorAll('tr')).map(tr => {
                   return Array.from(tr.querySelectorAll('th:not(:last-child), td:not(:last-child')).map(td => {
